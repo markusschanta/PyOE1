@@ -1,4 +1,3 @@
-@@ -0,0 +1,27 @@
 import datetime
 import pandas as pd
 import requests
@@ -25,4 +24,8 @@ def filter_program(program, columns=None):
         columns = DEFAULT_COLUMNS
     return program.loc[:,columns]
 
-print get_oe1_program()
+def print_program(program):
+    program.columns = [c.title() for c in program.columns]
+    print program.to_string(index=False).encode('utf-8')
+
+print_program(filter_program(post_process_program(get_oe1_program(offline=True))))

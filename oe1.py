@@ -32,6 +32,10 @@ def _get_date_from_row(row):
     return datetime.datetime.strptime(row['day_label'] + row['time'], '%d.%m.%Y%H:%M')
 
 def filter_and_print_program(program, args, columns=None):
+    # Reverse according to command line flag
+    if args.reverse:
+        program = program.loc[list(reversed(program.index)),:]
+
     # Filter rows to be printed based on command line argument
     if args.filter:
         program = program[program['title'].str.contains(args.filter)]
@@ -61,6 +65,7 @@ def parse_args():
 
     parser.add_argument("-d", "--date", help="Date for which to obtain program items for", type=int, default=0)
     parser.add_argument("-f", "--filter", help="String to filter program elements by", type=str)
+    parser.add_argument("-r", "--reverse", help="Reverse results", action="store_true")
     parser.add_argument("-u", "--url", help="Print URL(s) of matching program items only", action="store_true")
 
     args = parser.parse_args()

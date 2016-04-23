@@ -1,15 +1,16 @@
 import datetime
 import pandas as pd
 import requests
+import argparse
 
 BASE_URL = 'http://oe1.orf.at/programm/konsole/tag/'
 
 DEFAULT_COLUMNS = ['time', 'title', 'info']
 
-def get_oe1_program(day='20160423', offline=False):
+def get_oe1_program(date='20160423', offline=False):
     if offline:
         return _get_oe1_program_offline()
-    url = BASE_URL + day
+    url = BASE_URL + str(date)
     response = requests.get(url, stream=True)
     return pd.DataFrame(response.json()['list'])
 
@@ -29,8 +30,34 @@ def filter_program(program, columns=None):
         columns = DEFAULT_COLUMNS
     return program.loc[:,columns]
 
-def print_program(program):
+def print_program(program, date=None):
+    if date:
+        print 'Program for ' + str(date) + ':\n'
     program.columns = [c.title() for c in program.columns]
     print program.to_string(index=False).encode('utf-8')
 
-print_program(filter_program(post_process_program(get_oe1_program(offline=True))))
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("-d", "--date", help="Date for which to obtain program items for", type=int, default=0)
+    parser.add_argument("-f", "--filter", help="String to filter program elements by", type=str)
+    parser.add_argument("-u", "--url", help="Print URL(s) of matching program items only", action="store_true")
+
+    args = parser.parse_args()
+
+    if args.date <= 0:
+        args.date = args.date
+
+    return args
+
+def main():
+    args = parse_args()
+
+    program = get_oe1_program(date=args.date)
+    program = filter_program(post_process_program(program))
+
+    print_program(program, date=args.date)
+
+main()
+
+#print_program(filter_program(post_process_program(get_oe1_program(offline=True))))

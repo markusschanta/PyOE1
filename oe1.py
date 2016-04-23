@@ -20,17 +20,16 @@ def get_oe1_program(date='20160423', offline=False):
     except requests.exceptions.ConnectionError:
         sys.exit("Can not retreive program due to a network error.")
 
-
 def _get_oe1_program_offline():
     return pd.DataFrame.from_csv('offline.csv', encoding='utf-8')
-
-def _get_date_from_row(row):
-    return datetime.datetime.strptime(row['day_label'] + row['time'], '%d.%m.%Y%H:%M')
 
 def post_process_program(program):
     program = program.set_index('id')
     program['datetime'] = program.apply(_get_date_from_row, axis=1)
     return program
+
+def _get_date_from_row(row):
+    return datetime.datetime.strptime(row['day_label'] + row['time'], '%d.%m.%Y%H:%M')
 
 def filter_program(program, columns=None):
     if not columns:
@@ -61,7 +60,8 @@ def main():
     args = parse_args()
 
     program = get_oe1_program(date=args.date)
-    program = filter_program(post_process_program(program))
+    program = post_process_program(program)
+    program = filter_program(program)
 
     print_program(program, date=args.date)
 

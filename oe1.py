@@ -46,7 +46,7 @@ def parse_args():
     args = parser.parse_args()
 
     if args.date <= 0:
-        args.date = args.date
+        args.date = (datetime.datetime.today() + datetime.timedelta(days=args.date)).strftime("%Y%m%d")
 
     return args
 

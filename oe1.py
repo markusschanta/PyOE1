@@ -36,6 +36,11 @@ def filter_and_print_program(program, args, columns=None):
     if args.filter:
         program = program[program['title'].str.contains(args.filter)]
 
+    # Return first URL
+    if args.url:
+        print program['url_stream'].iloc[0]
+        sys.exit()
+
     # Print title
     title = 'Program for ' + str(args.date)
     if args.filter:

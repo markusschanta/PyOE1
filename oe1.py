@@ -31,14 +31,22 @@ def post_process_program(program):
 def _get_date_from_row(row):
     return datetime.datetime.strptime(row['day_label'] + row['time'], '%d.%m.%Y%H:%M')
 
-def filter_program(program, filter_str=None, columns=None):
+def filter_and_print_program(program, filter_str=None, columns=None):
+    # Filter rows to be printed based on command line argument
     if filter_str:
         program = program[program['title'].str.contains(filter_str)]
+
+    title = 'Program for ' + str(args.date)
+    if args.filter:
+        title += ' (filter: %s)' % args.filter
+    title += ':\n'
+    print title
+
+    # Filter columns to be printed
     if not columns:
         columns = DEFAULT_COLUMNS
-    return program.loc[:,columns]
+    program = program.loc[:,columns]
 
-def print_program(program, date=None):
     program.columns = [c.title() for c in program.columns]
     print program.to_string(index=False).encode('utf-8')
 
@@ -60,15 +68,6 @@ def main():
     args = parse_args()
 
     program = get_oe1_program(date=args.date)
-    program = post_process_program(program)
-    program = filter_program(program, filter_str=args.filter)
-
-    title = 'Program for ' + str(args.date)
-    if args.filter:
-        title += ' (filter: %s)' % args.filter
-    title += ':\n'
-    print title
-
-    print_program(program, date=args.date)
+    filter_and_print_program(program, filter_str=args.filter)
 
 main()

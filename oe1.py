@@ -2,6 +2,7 @@ import datetime
 import pandas as pd
 import requests
 import argparse
+import sys
 
 BASE_URL = 'http://oe1.orf.at/programm/konsole/tag/'
 
@@ -10,9 +11,15 @@ DEFAULT_COLUMNS = ['time', 'title', 'info']
 def get_oe1_program(date='20160423', offline=False):
     if offline:
         return _get_oe1_program_offline()
-    url = BASE_URL + str(date)
-    response = requests.get(url, stream=True)
-    return pd.DataFrame(response.json()['list'])
+    try:
+        url = BASE_URL + str(date)
+        response = requests.get(url, stream=True)
+        return pd.DataFrame(response.json()['list'])
+    except KeyError:
+        sys.exit("Can not retreive program for date %s." % date)
+    except requests.exceptions.ConnectionError:
+        sys.exit("Can not retreive program due to a network error.")
+
 
 def _get_oe1_program_offline():
     return pd.DataFrame.from_csv('offline.csv', encoding='utf-8')

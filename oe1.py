@@ -39,8 +39,6 @@ def filter_program(program, filter_str=None, columns=None):
     return program.loc[:,columns]
 
 def print_program(program, date=None):
-    if date:
-        print 'Program for ' + str(date) + ':\n'
     program.columns = [c.title() for c in program.columns]
     print program.to_string(index=False).encode('utf-8')
 
@@ -65,8 +63,12 @@ def main():
     program = post_process_program(program)
     program = filter_program(program, filter_str=args.filter)
 
+    title = 'Program for ' + str(args.date)
+    if args.filter:
+        title += ' (filter: %s)' % args.filter
+    title += ':\n'
+    print title
+
     print_program(program, date=args.date)
 
 main()
-
-#print_program(filter_program(post_process_program(get_oe1_program(offline=True))))

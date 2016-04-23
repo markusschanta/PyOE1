@@ -31,7 +31,9 @@ def post_process_program(program):
 def _get_date_from_row(row):
     return datetime.datetime.strptime(row['day_label'] + row['time'], '%d.%m.%Y%H:%M')
 
-def filter_program(program, columns=None):
+def filter_program(program, filter_str=None, columns=None):
+    if filter_str:
+        program = program[program['title'].str.contains(filter_str)]
     if not columns:
         columns = DEFAULT_COLUMNS
     return program.loc[:,columns]
@@ -61,7 +63,7 @@ def main():
 
     program = get_oe1_program(date=args.date)
     program = post_process_program(program)
-    program = filter_program(program)
+    program = filter_program(program, filter_str=args.filter)
 
     print_program(program, date=args.date)
 

@@ -1,8 +1,9 @@
+import argparse
 import datetime
+import sys
+
 import pandas as pd
 import requests
-import argparse
-import sys
 
 BASE_URL = 'http://oe1.orf.at/programm/konsole/tag/'
 
@@ -34,7 +35,7 @@ def _get_date_from_row(row):
 def filter_and_print_program(program, args, columns=None):
     # Reverse according to command line flag
     if args.reverse:
-        program = program.loc[list(reversed(program.index)),:]
+        program = program.loc[list(reversed(program.index)), :]
 
     # Filter rows to be printed based on command line argument
     if args.filter:
@@ -55,7 +56,7 @@ def filter_and_print_program(program, args, columns=None):
     # Filter columns to be printed
     if not columns:
         columns = DEFAULT_COLUMNS
-    program = program.loc[:,columns]
+    program = program.loc[:, columns]
 
     program.columns = [c.title() for c in program.columns]
     print program.to_string(index=False).encode('utf-8')

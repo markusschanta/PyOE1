@@ -1,6 +1,6 @@
-# Ö1Py
+# PyÖ1
 
-Ö1Py is a radio program scraper for the Austrian radio station [Ö1](https://en.wikipedia.org/wiki/%C3%961) written in Python.
+PyÖ1 is a radio program scraper for the Austrian radio station [Ö1](https://en.wikipedia.org/wiki/%C3%961) written in Python.
 It can be used to obtain a tabular representation of the radio program as well as URLs for the stream of a particular
 show (eg. in a launcher/alarm clock setup), eg.:
 

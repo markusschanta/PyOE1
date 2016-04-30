@@ -4,11 +4,11 @@
 It can be used to obtain a tabular representation of the radio program as well as URLs for the stream of a particular
 show (eg. in a launcher/alarm clock setup).
 
-# Usage
+## Usage
 
     python oe1.py [-d DATE] [-f FILTER] [-h] [-r] [-u]
 
-## Arguments
+### Arguments
 
 The following arguments are available:
 
@@ -20,9 +20,9 @@ The following arguments are available:
 | -r, --reverse              | Reverse results.                              |
 | -u, --url                  | Only Print URL(s) of matching program items.  |
 
-# Examples
+## Examples
 
-## Get radio program for today
+### Get radio program for today
 
     $ python oe1.py
     Program for 20160430:
@@ -36,7 +36,7 @@ The following arguments are available:
     07:55                  Schon gehört?  Die Ö1 Club-Sendung. Aktuelle Veranstaltungen ...
     08:00             Morgenjournal (II)  Italien: Kontrollen in Zügen wieder erlaubt / ...
 
-## Get radio program for the previous day
+### Get radio program for the previous day
 
     $ python oe1.py -d -1
     Program for 20160429:
@@ -50,7 +50,7 @@ The following arguments are available:
     02:00                              Nachrichten                                                   
     02:03                      Die Ö1 Klassiknacht  Präsentation: Michael Köppel; Musikauswahl: Ge...
 
-## Get radio program for today and print it in reverse order
+### Get radio program for today and print it in reverse order
 
     $ python oe1.py
     Program for 20160430:
@@ -64,7 +64,7 @@ The following arguments are available:
     06:05        Guten Morgen Österreich  Klassik trifft auf Jazz. Zu Beginn des Ö1-Jazz...
     06:00                    Nachrichten                                                   
 
-## Filter the radio program for a particular show
+### Filter the radio program for a particular show
 
     $ python oe1.py -f Morgenjournal
     Program for 20160430:
@@ -73,7 +73,7 @@ The following arguments are available:
     07:00              Morgenjournal (I)  BP-Wahl: Kritik an Meinungsforschern und Medie...
     08:00             Morgenjournal (II)  Italien: Kontrollen in Zügen wieder erlaubt / ...
 
-## Filter the radio program for a particular show and print the URL for the stream
+### Filter the radio program for a particular show and print the URL for the stream
 
     $ python oe1.py -f Morgenjournal -u
     http://loopstream01.apa.at/?channel=oe1&id=20160430_0700_6_1_journal_XXX_w_

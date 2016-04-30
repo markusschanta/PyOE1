@@ -78,7 +78,7 @@ The following arguments are available:
     $ python oe1.py -f Morgenjournal -u
     http://loopstream01.apa.at/?channel=oe1&id=20160430_0700_6_1_journal_XXX_w_
 
-The -u argument is particularly useful in combination with ```[xargs][1]```/```[open][2]```:
+The -u argument is particularly useful in combination with [```xargs```][1]/[```open```][2]:
 
     $ python oe1.py -f Morgenjournal -u | xargs open
 

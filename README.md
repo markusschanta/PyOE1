@@ -73,7 +73,7 @@ The following arguments are available:
     07:00              Morgenjournal (I)  BP-Wahl: Kritik an Meinungsforschern und Medie...
     08:00             Morgenjournal (II)  Italien: Kontrollen in Zügen wieder erlaubt / ...
 
-### Filter the radio program for a particular show and print the URL for the stream
+### Filter the radio program and print the URL for the stream
 
     $ python oe1.py -f Morgenjournal -u
     http://loopstream01.apa.at/?channel=oe1&id=20160430_0700_6_1_journal_XXX_w_

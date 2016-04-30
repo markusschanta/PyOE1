@@ -6,7 +6,7 @@ show (eg. in a launcher/alarm clock setup), eg.:
 
     python oe1.py -f Morgenjournal -u | xargs open
 
-## Usage
+## Synopsis
 
     python oe1.py [-d DATE] [-f FILTER] [-h] [-r] [-u]
 
